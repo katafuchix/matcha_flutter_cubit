@@ -1,0 +1,105 @@
+name: matcha_flutter_cubit
+description: matcha app - Cubit version
+publish_to: 'none'
+
+version: 1.1.4+42
+
+environment:
+  sdk: ^3.11.0
+  flutter: ^3.27.0
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_localizations:
+    sdk: flutter
+
+  cupertino_icons: ^1.0.8
+
+  # Firebase
+  firebase_core: ^3.8.1
+  firebase_analytics: ^11.3.6
+  firebase_performance: ^0.10.1+10
+  firebase_messaging: ^15.1.5
+  firebase_crashlytics: ^4.1.5
+  # firebase_core_web / firebase_messaging_web はv3以降メインパッケージに統合されたため不要
+
+  # Network
+  dio: ^5.7.0
+
+  # Storage
+  shared_preferences: ^2.3.3
+
+  # State management
+  flutter_bloc: ^9.0.0
+  provider: ^6.1.2
+
+  # DI
+  get_it: ^8.0.0
+
+  # Utils
+  intl: ^0.20.2
+  permission_handler: ^11.3.1
+  synchronized: ^3.3.0
+  url_launcher: ^6.3.1
+  auto_size_text: ^3.0.0
+  image: ^4.2.0
+
+  # Device / App info
+  # ⚠️ device_info → device_info_plus に変更 (app_info.dart の修正が必要)
+  device_info_plus: ^10.1.2
+  # ⚠️ package_info → package_info_plus に変更 (app_info.dart の修正が必要)
+  package_info_plus: ^8.1.3
+
+  # Image
+  image_picker: ^1.1.2
+  extended_image: ^8.3.1
+
+  # Date picker
+  # ⚠️ flutter_datetime_picker → flutter_datetime_picker_plus に変更 (sign_in_screen.dart のimport修正が必要)
+  flutter_datetime_picker_plus: ^2.1.0
+  # flutter_cupertino_date_picker / date_time_picker はDart3非対応のため削除
+  # flutter_picker はDart3非対応のため削除 → 必要なら alternatives を検討
+
+  # Chat
+  # ⚠️ dash_chat → dash_chat_2 に変更 (message_room_screen.dart の修正が必要)
+  dash_chat_2: ^0.0.21
+
+  # UI
+  flutter_speed_dial: ^7.0.0
+
+  # Notifications
+  flutter_local_notifications: ^17.2.4
+
+  # Purchase
+  in_app_purchase: ^3.2.0
+  in_app_purchase_android: ^0.3.5
+
+  # Ads
+  google_mobile_ads: ^5.1.0
+
+  # Analytics
+  appsflyer_sdk: ^6.13.1
+
+dependency_overrides:
+  # flutter_localizations が intl 0.20.2 に固定しているため、
+  # dash_chat_2 の intl ^0.19.0 制約を上書き。
+  intl: 0.20.2
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^6.0.0
+  json_serializable: ^6.9.0
+  build_runner: ^2.4.13
+
+flutter:
+  uses-material-design: true
+
+  assets:
+    - "assets/images/"
+
+  fonts:
+    - family: NotoSansJP-Regular
+      fonts:
+        - asset: assets/fonts/NotoSansJP-Regular.otf
