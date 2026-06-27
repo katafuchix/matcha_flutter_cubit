@@ -72,13 +72,13 @@ abstract class BaseState<T extends BaseStatefulWidget> extends State<T>
   }
 
   @protected
-  showProgress(BuildContext context) {
+  void showProgress(BuildContext context) {
     _showingProgress = true;
     showCircularProgress(context);
   }
 
   @protected
-  closeProgressIfNeed(BuildContext context) {
+  void closeProgressIfNeed(BuildContext context) {
     if (_showingProgress) {
       _showingProgress = false;
       closeCircularProgress(context);
