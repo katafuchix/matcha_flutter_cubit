@@ -4,7 +4,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../core/colors.dart';
 import '../../../core/words.dart';
-import '../../app.dart';
 import '../../base/base_stateful_widget.dart';
 import '../../components/containers.dart';
 import '../../components/setting_screen_util.dart';
@@ -45,7 +44,7 @@ class _SettingScreen extends BaseState<SettingScreen> {
 
   _SettingScreen(this._settingScreenCubit) : super(_settingScreenCubit);
 
-  BannerAdWidget _ad = BannerAdWidget(AdUnits.menuScreenBannerAdUnitId);
+  //BannerAdWidget _ad = BannerAdWidget(AdUnits.menuScreenBannerAdUnitId);
 
   @override
   void initState() {
@@ -56,15 +55,16 @@ class _SettingScreen extends BaseState<SettingScreen> {
   @override
   void dispose() {
     super.dispose();
-    _ad.onDispose();
+    //_ad.onDispose();
   }
 
   @override
   void onBuildWidget() {
     super.onBuildWidget();
-    _ad.onInitState(context, () {
+    /*_ad.onInitState(context, () {
       setState(() {});
     });
+     */
   }
 
   @override
@@ -141,9 +141,7 @@ class _SettingScreen extends BaseState<SettingScreen> {
         settingButton(
             text: 'お問い合わせ',
             action: () async {
-              final result = await MyNavigator.pushNamed(
-                  context, Routes.inquiry,
-                  pageOpenType: PageOpenType.SLIDE);
+              final result = await context.appPush(AppRoutes.inquiry);
               if (result is InquiryScreenResult) {
                 showInfoSnackBar(context, text: result.message);
               }
@@ -153,10 +151,8 @@ class _SettingScreen extends BaseState<SettingScreen> {
         settingButton(
             text: 'よくあるお問い合わせ',
             action: () async {
-              MyNavigator.pushNamed(context, Routes.simpleText,
-                  arguments:
-                      SimpleTextScreen.createScreenArgs('よくあるお問い合わせ', faqWord),
-                  pageOpenType: PageOpenType.SLIDE);
+              context.appPush(AppRoutes.simpleText,
+                  extra: SimpleTextScreenArgs('よくあるお問い合わせ', faqWord));
             },
             visibleForward: true),
         borderLine(),
@@ -165,20 +161,17 @@ class _SettingScreen extends BaseState<SettingScreen> {
         settingButton(
             text: '利用規約',
             action: () {
-              MyNavigator.pushNamed(context, Routes.simpleText,
-                  arguments:
-                      SimpleTextScreen.createScreenArgs('利用規約', termsOfService),
-                  pageOpenType: PageOpenType.SLIDE);
+              context.appPush(AppRoutes.simpleText,
+                  extra: SimpleTextScreenArgs('利用規約', termsOfService));
             },
             visibleForward: true),
         borderLine(),
         settingButton(
             text: '特定商取引に関する表示',
             action: () {
-              MyNavigator.pushNamed(context, Routes.simpleText,
-                  arguments: SimpleTextScreen.createScreenArgs(
-                      '特定商取引法に基づく表示', specifiedCommercialTransactionsLaw),
-                  pageOpenType: PageOpenType.SLIDE);
+              context.appPush(AppRoutes.simpleText,
+                  extra: SimpleTextScreenArgs(
+                      '特定商取引法に基づく表示', specifiedCommercialTransactionsLaw));
             },
             visibleForward: true),
         borderLine(),
@@ -187,7 +180,8 @@ class _SettingScreen extends BaseState<SettingScreen> {
     return Container(
         color: getAppColors().primaryBg,
         child: Column(
-          children: [Expanded(child: w), _ad.buildBannerAdOrEmptyContainer()],
+          children: [Expanded(child: w)//, _ad.buildBannerAdOrEmptyContainer()
+       ],
         ));
   }
 }

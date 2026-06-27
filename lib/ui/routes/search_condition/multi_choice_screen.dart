@@ -5,60 +5,16 @@ import '../../components/buttons.dart';
 import '../../my_navigator.dart';
 import '../home/app_bars.dart';
 
-class MultiChoiceOneItem {
-  int id;
-  String label;
-  bool selected;
-  MultiChoiceOneItem(this.id, this.label, this.selected);
-
-  @override
-  String toString() => '{id : $id, label : $label, selected : $selected}';
-}
-
-class MultiChoiceScreenResult {
-  List<MultiChoiceOneItem> selectedItems;
-  MultiChoiceScreenResult(this.selectedItems);
-
-  @override
-  String toString() => '{selectedItems : $selectedItems}';
-}
-
-class _MultiChoiceScreenArgs {
-  final String title;
-  final List<MultiChoiceOneItem> items;
-  // キャンセル時に呼び出し側の値が変わらないよう、ハードコピーしておく
-  _MultiChoiceScreenArgs(this.title, List<MultiChoiceOneItem> items)
-      : this.items = List.generate(
-            items.length,
-            (index) => MultiChoiceOneItem(
-                items[index].id, items[index].label, items[index].selected));
-}
+export '../../route_args.dart' show MultiChoiceOneItem, MultiChoiceScreenResult;
 
 class MultiChoiceScreen extends BaseStatefulWidget {
-  static final _keyArgs = 'key_profile_args';
+  final String title;
+  final List<MultiChoiceOneItem> items;
 
-  MultiChoiceScreen({required ScreenArgs args}) : super(args: args);
-
-  static ScreenArgs createScreenArgs(
-      String title, List<MultiChoiceOneItem> items) {
-    ScreenArgs args = ScreenArgs()
-      ..put(
-        _keyArgs,
-        _MultiChoiceScreenArgs(title, items),
-      );
-    return args;
-  }
+  const MultiChoiceScreen({required this.title, required this.items});
 
   @override
-  State<StatefulWidget> createState() {
-    final _MultiChoiceScreenArgs screenArgs = getArgs();
-    return _MultiChoiceState(screenArgs.title, screenArgs.items);
-  }
-
-  @override
-  String getArgsKey() {
-    return _keyArgs;
-  }
+  State<StatefulWidget> createState() => _MultiChoiceState(title, items);
 }
 
 class _MultiChoiceState extends BaseState<MultiChoiceScreen> {

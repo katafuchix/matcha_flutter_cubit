@@ -7,44 +7,22 @@ import '../../base/base_stateful_widget.dart';
 import '../../components/texts.dart';
 import '../../components/widget_circular_progress.dart';
 import '../../helper/repository_handler.dart';
-import '../../my_navigator.dart';
 import '../home/app_bars.dart';
 
-class _NotificationContentsScreenArgs {
+class NotificationContentsScreen extends BaseStatefulWidget {
   final int notificationId;
   final NotificationType notificationType;
   final String title;
-  _NotificationContentsScreenArgs(
-      this.notificationId, this.notificationType, this.title);
-}
 
-class NotificationContentsScreen extends BaseStatefulWidget {
-  static final _keyArgs = 'key_profile_args';
-
-  NotificationContentsScreen({required ScreenArgs args}) : super(args: args);
-
-  static ScreenArgs createScreenArgs(
-      int notificationId, NotificationType notificationType, String title) {
-    ScreenArgs args = ScreenArgs()
-      ..put(
-        _keyArgs,
-        _NotificationContentsScreenArgs(
-            notificationId, notificationType, title),
-      );
-    return args;
-  }
+  const NotificationContentsScreen({
+    required this.notificationId,
+    required this.notificationType,
+    required this.title,
+  });
 
   @override
-  State<StatefulWidget> createState() {
-    final _NotificationContentsScreenArgs screenArgs = getArgs();
-    return _NotificationContentsState(screenArgs.notificationId,
-        screenArgs.notificationType, screenArgs.title);
-  }
-
-  @override
-  String getArgsKey() {
-    return _keyArgs;
-  }
+  State<StatefulWidget> createState() => _NotificationContentsState(
+      notificationId, notificationType, title);
 }
 
 class _NotificationContentsState extends BaseState<NotificationContentsScreen> {
@@ -100,20 +78,14 @@ class _NotificationContentsState extends BaseState<NotificationContentsScreen> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          SizedBox(
-            height: 16,
-          ),
+          SizedBox(height: 16),
           buildNormalText(title),
-          SizedBox(
-            height: 16,
-          ),
+          SizedBox(height: 16),
           Expanded(
               child: SingleChildScrollView(
             child: buildSmallerText(_body ?? ''),
           )),
-          SizedBox(
-            height: 16,
-          ),
+          SizedBox(height: 16),
         ],
       ),
     );

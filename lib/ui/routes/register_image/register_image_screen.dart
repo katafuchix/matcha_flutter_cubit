@@ -12,42 +12,17 @@ import '../../components/containers.dart';
 import '../../components/snack_bar.dart';
 import '../../components/widget_circular_progress.dart';
 import '../../helper/image_util.dart';
-import '../../my_navigator.dart';
 import '../home/app_bars.dart';
 import 'register_image_cubit.dart';
 
-class _RegisterImageScreenArgs {
-  final String profileImageUrl;
-
-  _RegisterImageScreenArgs(this.profileImageUrl);
-}
-
 class RegisterImageScreen extends BaseStatefulWidget {
-  static final _keyArgs = 'key_register_image_args';
+  final String? profileImageUrl;
 
-  RegisterImageScreen({ScreenArgs? args}) : super(args: args) {
-    assert(args == null ||
-        args.get(_keyArgs) == null ||
-        args.get(_keyArgs) is _RegisterImageScreenArgs);
-  }
-
-  static ScreenArgs createScreenArgs(String profileImageUrl) {
-    ScreenArgs args = ScreenArgs()
-      ..put(_keyArgs, _RegisterImageScreenArgs(profileImageUrl));
-    return args;
-  }
+  const RegisterImageScreen({this.profileImageUrl});
 
   @override
-  State<StatefulWidget> createState() {
-    final _RegisterImageScreenArgs? args = getArgs();
-    return _RegisterImageScreen(
-        RegisterImageScreenCubit(), args?.profileImageUrl);
-  }
-
-  @override
-  String getArgsKey() {
-    return _keyArgs;
-  }
+  State<StatefulWidget> createState() =>
+      _RegisterImageScreen(RegisterImageScreenCubit(), profileImageUrl);
 }
 
 // TODO 適宜修正 / 削除

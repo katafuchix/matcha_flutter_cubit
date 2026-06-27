@@ -20,7 +20,6 @@ import '../../../repository/user_repository.dart';
 import '../../../ui/components/image_loader.dart';
 import '../../../ui/routes/home/home_change_notifier.dart';
 import '../../../ui/routes/simple_text/simple_image_screen.dart';
-import '../../app.dart';
 import '../../base/base_stateful_widget.dart';
 import '../../components/containers.dart';
 import '../../components/dialogs.dart';
@@ -36,38 +35,14 @@ import '../home/app_bars.dart';
 import '../home/home_change_notifier.dart';
 import '../simple_text/simple_image_screen.dart';
 
-class _ProfileScreenArgs {
+class ProfileScreen extends BaseStatefulWidget {
   final ProfileResponse profile;
   final bool isMe;
 
-  _ProfileScreenArgs(this.profile, this.isMe);
-}
-
-class ProfileScreen extends BaseStatefulWidget {
-  static final _keyArgs = 'key_profile_args';
-
-  ProfileScreen({required ScreenArgs args}) : super(args: args);
-
-  static ScreenArgs createScreenArgs(ProfileResponse profile,
-      {bool isMe = false}) {
-    ScreenArgs args = ScreenArgs()
-      ..put(
-        _keyArgs,
-        _ProfileScreenArgs(profile, isMe),
-      );
-    return args;
-  }
+  const ProfileScreen({required this.profile, this.isMe = false});
 
   @override
-  State<StatefulWidget> createState() {
-    final _ProfileScreenArgs screenArgs = getArgs();
-    return _ProfileScreen(screenArgs.profile, screenArgs.isMe);
-  }
-
-  @override
-  String getArgsKey() {
-    return _keyArgs;
-  }
+  State<StatefulWidget> createState() => _ProfileScreen(profile, isMe);
 }
 
 class ProfileScreenViewData {
@@ -462,8 +437,8 @@ class _ProfileBodyWidgetState extends BaseState<ProfileBodyWidget> {
                     return;
                   }
                   AppEvent.sendTapToProfileImageEvent();
-                  MyNavigator.pushNamed(context, Routes.simpleImage,
-                      arguments: SimpleImageScreen.createScreenArgs('プロフィール画像',
+                  context.appPush(AppRoutes.simpleImage,
+                      extra: SimpleImageScreenArgs('プロフィール画像',
                           url: ImageLoader.apiUrlToFullPath(
                               result.getData()?.profileImages.first.image)));
                 },
@@ -644,7 +619,7 @@ Future _matchingAndNavigateMessageRoom(BuildContext context,
       roomId = successResult!.roomId;
       // マッチング成功を返す
       String deepLink = _createMessageRoomDeepLink(targetUserId, roomId);
-      MyNavigator.pushMain(scaffoldKey.currentContext!, deepLink: deepLink);
+      scaffoldKey.currentContext!.appGo(AppRoutes.home, extra: deepLink);
     });
   } else {
     // マッチング後、メッセージ送信
@@ -667,7 +642,7 @@ Future _matchingAndNavigateMessageRoom(BuildContext context,
           scaffoldKey.currentContext!, messageResult,
           onSuccess: (successResult, _) {
         String deepLink = _createMessageRoomDeepLink(targetUserId, roomId);
-        MyNavigator.pushMain(scaffoldKey.currentContext!, deepLink: deepLink);
+        scaffoldKey.currentContext!.appGo(AppRoutes.home, extra: deepLink);
       });
     });
   }
@@ -677,7 +652,7 @@ String _createMessageRoomDeepLink(int targetUserId, String roomId) {
   String targetUserQueryValue = Uri.encodeComponent(targetUserId.toString());
   String roomIdQueryValue = Uri.encodeComponent(roomId);
   String deepLink =
-      '${Routes.messageRoom}?target_user_id=$targetUserQueryValue&room_id=$roomIdQueryValue';
+      '${AppRoutes.messageRoom}?target_user_id=$targetUserQueryValue&room_id=$roomIdQueryValue';
   MyLogger.d('deepLink = $deepLink');
   return deepLink;
 }

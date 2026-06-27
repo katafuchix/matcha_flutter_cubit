@@ -4,7 +4,6 @@ import 'package:provider/provider.dart';
 import '../../../core/colors.dart';
 import '../../../model/user/profile_response.dart';
 import '../../../repository/user_repository.dart';
-import '../../app.dart';
 import '../../base/base_stateful_widget.dart';
 import '../../components/layouts.dart';
 import '../../components/profile_util.dart';
@@ -97,8 +96,8 @@ class _BlockListState extends BaseState<BlockListScreen> {
     }
     return buildMemberCard(
         onTap: () async {
-          MyNavigator.pushNamed(context, Routes.profile,
-              arguments: ProfileScreen.createScreenArgs(profile));
+          context.appPush(AppRoutes.profile,
+              extra: ProfileScreenArgs(profile));
         },
         image: buildProfileImage(
             width: 64,

@@ -19,7 +19,6 @@ import '../../../repository/config_repository.dart';
 import '../../../repository/notification_repository.dart';
 import '../../../repository/user_repository.dart';
 import '../../../ui/components/widget_circular_progress.dart';
-import '../../app.dart';
 import '../../base/base_stateful_widget.dart';
 import '../../components/containers.dart';
 import '../../components/dialogs.dart';
@@ -195,7 +194,7 @@ class _HomeScreenState extends BaseState<HomeScreen> {
 
     final Uri uri = Uri.parse(deepLink);
 
-    if (uri.path == Routes.messageRoom) {
+    if (uri.path == AppRoutes.messageRoom) {
       try {
         if (uri.queryParameters['target_user_id'] == null ||
             uri.queryParameters['room_id'] == null) return;
@@ -224,8 +223,8 @@ class _HomeScreenState extends BaseState<HomeScreen> {
         });
 
         if (myProfile != null && targetProfile != null) {
-          MyNavigator.pushNamed(context, Routes.messageRoom,
-              arguments: MessageRoomScreen.createScreenArgs(
+          context.appPush(AppRoutes.messageRoom,
+              extra: MessageRoomScreenArgs(
                   roomId: roomId,
                   myProfile: myProfile!,
                   targetProfile: targetProfile!));

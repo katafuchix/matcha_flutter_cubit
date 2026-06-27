@@ -13,7 +13,6 @@ import '../../../repository/master_repository.dart';
 import '../../../repository/storage/shared_preferences/shared_preferences_keys.dart';
 import '../../../repository/storage/shared_preferences/shared_preferences_manager.dart';
 import '../../../repository/user_repository.dart';
-import '../../app.dart';
 import '../../base/base_stateful_widget.dart';
 import '../../components/buttons.dart';
 import '../../components/containers.dart';
@@ -148,8 +147,7 @@ class _MyPageScreen extends BaseState<MyPageScreen> {
             settingButton(
                 text: 'チケット履歴',
                 action: () {
-                  MyNavigator.pushNamed(context, Routes.pointHistory,
-                      pageOpenType: PageOpenType.SLIDE);
+                  context.appPush(AppRoutes.pointHistory);
                 },
                 visibleForward: true),
             borderLine(),
@@ -185,17 +183,13 @@ class _MyPageScreen extends BaseState<MyPageScreen> {
             settingButton(
                 text: 'プロフィール画像',
                 action: () async {
-                  ScreenArgs? args;
+                  String? imageUrl;
                   if (viewData.profile?.profileImages.isNotEmpty == true) {
-                    String? image = ImageLoader.apiUrlToFullPath(
+                    imageUrl = ImageLoader.apiUrlToFullPath(
                         viewData.profile?.profileImages.first.image);
-                    if (image != null) {
-                      args = RegisterImageScreen.createScreenArgs(image);
-                    }
                   }
-                  final result = await MyNavigator.pushNamed(
-                      context, Routes.registerImage,
-                      arguments: args, pageOpenType: PageOpenType.SLIDE);
+                  final result = await context.appPush(AppRoutes.registerImage,
+                      extra: imageUrl);
                   if (result is bool && result == true) {
                     await _refreshProfile();
                   }
@@ -205,10 +199,8 @@ class _MyPageScreen extends BaseState<MyPageScreen> {
             settingButton(
                 text: 'プロフィール確認',
                 action: () async {
-                  MyNavigator.pushNamed(context, Routes.profile,
-                      arguments: ProfileScreen.createScreenArgs(
-                          viewData.profile!,
-                          isMe: true));
+                  context.appPush(AppRoutes.profile,
+                      extra: ProfileScreenArgs(viewData.profile!, isMe: true));
                 }),
             borderLine(),
             buildSeparator(),
@@ -274,22 +266,21 @@ class _MyPageScreen extends BaseState<MyPageScreen> {
             settingButton(
                 text: '機種変更時のデータ移行',
                 action: () {
-                  MyNavigator.pushNamed(context, Routes.registerEmail,
-                      pageOpenType: PageOpenType.SLIDE);
+                  context.appPush(AppRoutes.registerEmail);
                 },
                 visibleForward: true),
             borderLine(),
             settingButton(
                 text: 'お気に入りリスト',
                 action: () {
-                  MyNavigator.pushNamed(context, Routes.favoriteList);
+                  context.appPush(AppRoutes.favoriteList);
                 }),
             borderLine(),
             settingButton(
                 text: 'ブロックリスト',
                 action: () {
                   // TODO 変動があったら更新する？
-                  MyNavigator.pushNamed(context, Routes.blockList);
+                  context.appPush(AppRoutes.blockList);
                 }),
             borderLine(),
             settingButton(
@@ -301,8 +292,7 @@ class _MyPageScreen extends BaseState<MyPageScreen> {
                       cancelable: true, onOk: () async {
                     (await SharedPreferencesManager.getInstance())
                         .clearKey(SharedPreferencesKeys.ACCESS_TOKEN);
-                    MyNavigator.pushNamedAndRemoveUntil(
-                        context, Routes.signIn, (r) => false);
+                    context.appGo(AppRoutes.signIn);
                   });
                 }),
             borderLine(),
@@ -321,8 +311,7 @@ class _MyPageScreen extends BaseState<MyPageScreen> {
                         onSuccess: (_, __) async {
                       (await SharedPreferencesManager.getInstance())
                           .putString(SharedPreferencesKeys.ACCESS_TOKEN, '');
-                      MyNavigator.pushNamedAndRemoveUntil(
-                          context, Routes.signIn, (r) => false);
+                      _scaffoldKey.currentContext!.appGo(AppRoutes.signIn);
                     });
                   });
                 }),

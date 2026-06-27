@@ -8,7 +8,6 @@ import '../../../../model/matching/matched_response.dart';
 import '../../../../model/notification/notifications.dart';
 import '../../../../model/user/profile_response.dart';
 import '../../../../repository/user_repository.dart';
-import '../../../app.dart';
 import '../../../base/base_stateful_widget.dart';
 import '../../../components/datetime_util.dart';
 import '../../../components/layouts.dart';
@@ -44,7 +43,7 @@ class _MessageListScreenState extends BaseState<MessageListScreen>
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   final UserRepository _userRepository = UserRepository();
   late TabController _tabController;
-  BannerAdWidget _ad = BannerAdWidget(AdUnits.messageScreenBannerAdUnitId);
+  //BannerAdWidget _ad = BannerAdWidget(AdUnits.messageScreenBannerAdUnitId);
 
   @override
   void initState() {
@@ -55,16 +54,16 @@ class _MessageListScreenState extends BaseState<MessageListScreen>
   @override
   void dispose() {
     _tabController.dispose();
-    _ad.onDispose();
+    //_ad.onDispose();
     super.dispose();
   }
 
   @mustCallSuper
   void onBuildWidget() {
     super.onBuildWidget();
-    _ad.onInitState(context, () {
+    /*_ad.onInitState(context, () {
       setState(() {});
-    });
+    });*/
   }
 
   @override
@@ -194,8 +193,8 @@ class _MessageListScreenState extends BaseState<MessageListScreen>
           ),
         ),
         onTap: () async {
-          await MyNavigator.pushNamed(context, Routes.notificationContents,
-              arguments: NotificationContentsScreen.createScreenArgs(
+          await context.appPush(AppRoutes.notificationContents,
+              extra: NotificationContentsScreenArgs(
                   notifications.notificationId,
                   notifications.notificationType,
                   notifications.title));
@@ -255,7 +254,7 @@ class _MessageListScreenState extends BaseState<MessageListScreen>
                   },
                 ),
               ),
-              _ad.buildBannerAdOrEmptyContainer()
+              //_ad.buildBannerAdOrEmptyContainer()
             ],
           )),
     );
@@ -273,8 +272,8 @@ class _MessageListScreenState extends BaseState<MessageListScreen>
               null, member.profile, /*TODO*/ null, member.profileImages, null);
           RepositoryHandler.handleRepositoryResult(context, meResult,
               onSuccess: (ProfileResponse? me, __) {
-            MyNavigator.pushNamed(context, Routes.messageRoom,
-                arguments: MessageRoomScreen.createScreenArgs(
+            context.appPush(AppRoutes.messageRoom,
+                extra: MessageRoomScreenArgs(
                     roomId: member.match.roomId,
                     myProfile: me!,
                     targetProfile: targetProfile));
@@ -282,13 +281,9 @@ class _MessageListScreenState extends BaseState<MessageListScreen>
         },
         image: InkWell(
           onTap: () {
-            MyNavigator.pushNamed(_scaffoldKey.currentContext!, Routes.profile,
-                arguments: ProfileScreen.createScreenArgs(ProfileResponse(
-                    null,
-                    member.profile,
-                    /*TODO*/ null,
-                    member.profileImages,
-                    null)));
+            _scaffoldKey.currentContext!.appPush(AppRoutes.profile,
+                extra: ProfileScreenArgs(ProfileResponse(
+                    null, member.profile, null, member.profileImages, null)));
           },
           child: buildProfileImage(
               width: 64,

@@ -7,7 +7,6 @@ import '../../../../core/app_info.dart';
 import '../../../../core/colors.dart';
 import '../../../../model/search_condition/search_condition.dart';
 import '../../../../model/user/profile_response.dart';
-import '../../../app.dart';
 import '../../../base/base_stateful_widget.dart';
 import '../../../components/layouts.dart';
 import '../../../components/profile_util.dart';
@@ -42,7 +41,7 @@ class _SearchScreenState extends BaseState<SearchScreen> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   final AppColors _colors = getAppColors();
 
-  BannerAdWidget _ad = BannerAdWidget(AdUnits.searchScreenBannerAdUnitId);
+  //BannerAdWidget _ad = BannerAdWidget(AdUnits.searchScreenBannerAdUnitId);
 
   LayoutType _layoutType = LayoutType.GRID;
   // この値が変更されると、リストビューのスクロール位置がリセットされる
@@ -53,15 +52,15 @@ class _SearchScreenState extends BaseState<SearchScreen> {
   @override
   void dispose() {
     super.dispose();
-    _ad.onDispose();
+    //_ad.onDispose();
   }
 
   @mustCallSuper
   void onBuildWidget() {
     super.onBuildWidget();
-    _ad.onInitState(context, () {
+    /*_ad.onInitState(context, () {
       setState(() {});
-    });
+    });*/
   }
 
   @override
@@ -75,7 +74,7 @@ class _SearchScreenState extends BaseState<SearchScreen> {
       appBar: buildHomeAppBar(context, 'さがす'),
       body: _buildMainList(),
       floatingActionButton: Container(
-          margin: EdgeInsets.only(bottom: _ad.adHeight()), child: _speedDial()),
+          margin: EdgeInsets.only(bottom: 0/*_ad.adHeight()*/), child: _speedDial()),
     );
   }
 
@@ -139,11 +138,9 @@ class _SearchScreenState extends BaseState<SearchScreen> {
           onTap: () async {
             SearchingNotifier notifier =
                 SearchingNotifier.getNoListenerNotifier(context);
-            final result = await MyNavigator.pushNamed(
-                context, Routes.searchCondition,
-                arguments: SearchConditionScreen.createScreenArgs(
-                    showSexField: false,
-                    currentCondition: notifier.searchCondition));
+            final result = await context.appPush(AppRoutes.searchCondition,
+                extra: SearchConditionScreenArgs(
+                    false, notifier.searchCondition));
             if (result is SearchCondition) {
               notifier.updateSearchCondition(result);
               await notifier.updateList(context);
@@ -180,7 +177,7 @@ class _SearchScreenState extends BaseState<SearchScreen> {
         return Container(
           color: _colors.primaryBg,
           child: Column(
-            children: [Expanded(child: w), _ad.buildBannerAdOrEmptyContainer()],
+            children: [Expanded(child: w), /*_ad.buildBannerAdOrEmptyContainer()*/],
           ),
         );
       },
@@ -239,10 +236,8 @@ class _SearchScreenState extends BaseState<SearchScreen> {
     return Card(
       child: InkWell(
         onTap: () async {
-          MyNavigator.pushNamed(_scaffoldKey.currentContext!, Routes.profile,
-              arguments: ProfileScreen.createScreenArgs(profile));
-          // MyNavigator.push(_scaffoldKey.currentContext, Routes.profile,
-          //     arguments: ProfileScreen.createScreenArgs(profile));
+          _scaffoldKey.currentContext!.appPush(AppRoutes.profile,
+              extra: ProfileScreenArgs(profile));
         },
         child: Padding(
           padding: EdgeInsets.all(4),
@@ -274,8 +269,8 @@ class _SearchScreenState extends BaseState<SearchScreen> {
     }
     return buildMemberCard(
         onTap: () async {
-          MyNavigator.pushNamed(_scaffoldKey.currentContext!, Routes.profile,
-              arguments: ProfileScreen.createScreenArgs(profile));
+          _scaffoldKey.currentContext!.appPush(AppRoutes.profile,
+              extra: ProfileScreenArgs(profile));
         },
         image: buildProfileImage(
             width: w,

@@ -3,37 +3,16 @@ import 'package:flutter/material.dart';
 import '../../base/base_stateful_widget.dart';
 import '../../components/containers.dart';
 import '../../components/texts.dart';
-import '../../my_navigator.dart';
 import '../home/app_bars.dart';
 
-class _SimpleTextScreenArgs {
+class SimpleTextScreen extends BaseStatefulWidget {
   final String title;
   final String text;
 
-  _SimpleTextScreenArgs(this.title, this.text);
-}
-
-class SimpleTextScreen extends BaseStatefulWidget {
-  static final _keyArgs = 'key_profile_args';
-
-  SimpleTextScreen({required ScreenArgs args}) : super(args: args);
-
-  static ScreenArgs createScreenArgs(String title, String text) {
-    ScreenArgs args = ScreenArgs()
-      ..put(_keyArgs, _SimpleTextScreenArgs(title, text));
-    return args;
-  }
+  const SimpleTextScreen({required this.title, required this.text});
 
   @override
-  State<StatefulWidget> createState() {
-    final _SimpleTextScreenArgs screenArgs = getArgs();
-    return _SimpleTextScreen(screenArgs.title, screenArgs.text);
-  }
-
-  @override
-  String getArgsKey() {
-    return _keyArgs;
-  }
+  State<StatefulWidget> createState() => _SimpleTextScreen(title, text);
 }
 
 class _SimpleTextScreen extends BaseState<SimpleTextScreen> {

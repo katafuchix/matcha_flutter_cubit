@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:google_mobile_ads/google_mobile_ads.dart';
+//import 'package:google_mobile_ads/google_mobile_ads.dart';
 
 import '../../core/my_platform.dart';
 
+/*
 class BannerAdWidget {
   final String? adUnitId;
 
@@ -64,3 +65,4 @@ class BannerAdWidget {
     return _isAdLoaded ? (_ad?.size.height.toDouble() ?? 50) + 10 : 0;
   }
 }
+*/

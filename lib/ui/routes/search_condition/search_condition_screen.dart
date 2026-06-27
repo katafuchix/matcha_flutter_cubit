@@ -8,7 +8,6 @@ import '../../../core/my_logger.dart';
 import '../../../model/master/master_data.dart';
 import '../../../model/search_condition/search_condition.dart';
 import '../../../repository/master_repository.dart';
-import '../../app.dart';
 import '../../base/base_stateful_widget.dart';
 import '../../components/buttons.dart';
 import '../../components/texts.dart';
@@ -17,38 +16,18 @@ import '../../my_navigator.dart';
 import '../home/app_bars.dart';
 import 'multi_choice_screen.dart';
 
-class _SearchConditionScreenArgs {
+class SearchConditionScreen extends BaseStatefulWidget {
   final bool showSexField;
   final SearchCondition currentCondition;
 
-  _SearchConditionScreenArgs(this.showSexField, this.currentCondition);
-}
-
-class SearchConditionScreen extends BaseStatefulWidget {
-  static final _keyArgs = 'key_profile_args';
-
-  SearchConditionScreen({required ScreenArgs args}) : super(args: args);
-
-  static ScreenArgs createScreenArgs(
-      {bool showSexField = true, required SearchCondition currentCondition}) {
-    ScreenArgs args = ScreenArgs()
-      ..put(
-        _keyArgs,
-        _SearchConditionScreenArgs(showSexField, currentCondition),
-      );
-    return args;
-  }
+  const SearchConditionScreen({
+    this.showSexField = true,
+    required this.currentCondition,
+  });
 
   @override
-  State<StatefulWidget> createState() {
-    final _SearchConditionScreenArgs screenArgs = getArgs();
-    return _SearchConditionState(screenArgs.currentCondition);
-  }
-
-  @override
-  String getArgsKey() {
-    return _keyArgs;
-  }
+  State<StatefulWidget> createState() =>
+      _SearchConditionState(currentCondition);
 }
 
 class IntRangeItem {
@@ -237,8 +216,8 @@ class _SearchConditionState extends BaseState<SearchConditionScreen> {
             items[index].id, items[index].label, items[index].selected));
     return InkWell(
       onTap: () async {
-        final result = await MyNavigator.pushNamed(context, Routes.multiChoice,
-            arguments: MultiChoiceScreen.createScreenArgs(title, newItemsList));
+        final result = await context.appPush(AppRoutes.multiChoice,
+            extra: MultiChoiceScreenArgs(title, newItemsList));
         if (result is MultiChoiceScreenResult) {
           MyLogger.d(result);
           // この関数の引数は、メンバー変数を受け取っている想定

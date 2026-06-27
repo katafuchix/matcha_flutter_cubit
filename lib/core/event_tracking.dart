@@ -18,7 +18,7 @@ class EventTracking {
   static AppsflyerSdk? _appsflyerSdkInstance;
 
   static Future initialize() async {
-    await Firebase.initializeApp();
+    //await Firebase.initializeApp();
     await _initAppsFlyer();
   }
 

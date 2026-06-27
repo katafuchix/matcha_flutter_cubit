@@ -5,7 +5,6 @@ import 'package:provider/provider.dart';
 import '../../../../model/basic/sex.dart';
 import '../../../../model/user/profile_response.dart';
 import '../../../../model/visitor/visitor.dart';
-import '../../../app.dart';
 import '../../../base/base_stateful_widget.dart';
 import '../../../components/datetime_util.dart';
 import '../../../components/layouts.dart';
@@ -31,7 +30,7 @@ class _HistoryScreenState extends BaseState<HistoryScreen>
 
   late TabController _tabController;
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-  BannerAdWidget _ad = BannerAdWidget(AdUnits.historyScreenBannerAdUnitId);
+  //BannerAdWidget _ad = BannerAdWidget(AdUnits.historyScreenBannerAdUnitId);
 
   @override
   void initState() {
@@ -42,16 +41,16 @@ class _HistoryScreenState extends BaseState<HistoryScreen>
   @override
   void dispose() {
     _tabController.dispose();
-    _ad.onDispose();
+    //_ad.onDispose();
     super.dispose();
   }
 
   @mustCallSuper
   void onBuildWidget() {
     super.onBuildWidget();
-    _ad.onInitState(context, () {
+    /*_ad.onInitState(context, () {
       setState(() {});
-    });
+    });*/
   }
 
   @override
@@ -179,7 +178,7 @@ class _HistoryScreenState extends BaseState<HistoryScreen>
               return _buildListOneItem(profiles[index]);
             },
           )),
-          _ad.buildBannerAdOrEmptyContainer()
+          //_ad.buildBannerAdOrEmptyContainer()
         ],
       ),
     );
@@ -216,7 +215,7 @@ class _HistoryScreenState extends BaseState<HistoryScreen>
                 children: listView,
               ),
             ),
-            _ad.buildBannerAdOrEmptyContainer()
+            //_ad.buildBannerAdOrEmptyContainer()
           ],
         ),
       ),
@@ -236,8 +235,8 @@ class _HistoryScreenState extends BaseState<HistoryScreen>
     DateTime? visitedDateTime = DateTimeConverter.parse(profile.visitedAt);
     return buildMemberCard(
         onTap: () async {
-          MyNavigator.pushNamed(context, Routes.profile,
-              arguments: ProfileScreen.createScreenArgs(profile));
+          context.appPush(AppRoutes.profile,
+              extra: ProfileScreenArgs(profile));
         },
         image: buildProfileImage(
             width: 64,

@@ -67,7 +67,7 @@ class _TicketScreenState extends BaseState<TicketScreen> {
   bool _isAvailable = false;
   bool _loading = true;
   String? _queryProductError;
-  BannerAdWidget _ad = BannerAdWidget(AdUnits.ticketScreenBannerAdUnitId);
+  //BannerAdWidget _ad = BannerAdWidget(AdUnits.ticketScreenBannerAdUnitId);
   bool _tapJoysContentsIsEnable = false;
   bool _showAppBar = true;
   // String? _apiErrorMessage;
@@ -98,16 +98,16 @@ class _TicketScreenState extends BaseState<TicketScreen> {
   @override
   void dispose() {
     _subscription?.cancel();
-    _ad.onDispose();
+    //_ad.onDispose();
     super.dispose();
   }
 
   @mustCallSuper
   void onBuildWidget() {
     super.onBuildWidget();
-    _ad.onInitState(context, () {
+    /*_ad.onInitState(context, () {
       setState(() {});
-    });
+    });*/
     // TapJoy
     // setupTapjoy();
     reSetupTapjoy();
@@ -185,7 +185,7 @@ class _TicketScreenState extends BaseState<TicketScreen> {
                       ),
                     )),
                 _buildRestoreButton(),
-                _ad.buildBannerAdOrEmptyContainer()
+                //_ad.buildBannerAdOrEmptyContainer()
               ],
             ),
           );

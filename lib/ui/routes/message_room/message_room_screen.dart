@@ -16,7 +16,6 @@ import '../../../model/message/send_message.dart';
 import '../../../model/repository/repository_result.dart';
 import '../../../model/user/profile_response.dart';
 import '../../../repository/message_repository.dart';
-import '../../app.dart';
 import '../../base/base_stateful_widget.dart';
 import '../../components/containers.dart';
 import '../../components/datetime_util.dart';
@@ -31,46 +30,20 @@ import '../home/app_bars.dart';
 import '../profile/profile_screen.dart';
 import '../simple_text/simple_image_screen.dart';
 
-class _MessageRoomScreenArgs {
+class MessageRoomScreen extends BaseStatefulWidget {
   final String roomId;
   final ProfileResponse myProfile;
   final ProfileResponse targetProfile;
 
-  _MessageRoomScreenArgs(
-      {required this.roomId,
-      required this.myProfile,
-      required this.targetProfile});
-}
-
-class MessageRoomScreen extends BaseStatefulWidget {
-  static final _keyArgs = 'key_message_room_args';
-
-  MessageRoomScreen({required ScreenArgs args}) : super(args: args);
-
-  static ScreenArgs createScreenArgs(
-      {required String roomId,
-      required ProfileResponse myProfile,
-      required ProfileResponse targetProfile}) {
-    ScreenArgs args = ScreenArgs()
-      ..put(
-        _keyArgs,
-        _MessageRoomScreenArgs(
-            roomId: roomId, myProfile: myProfile, targetProfile: targetProfile),
-      );
-    return args;
-  }
+  const MessageRoomScreen({
+    required this.roomId,
+    required this.myProfile,
+    required this.targetProfile,
+  });
 
   @override
-  State<StatefulWidget> createState() {
-    final _MessageRoomScreenArgs screenArgs = getArgs();
-    return _MessageRoomScreenState(
-        screenArgs.roomId, screenArgs.myProfile, screenArgs.targetProfile);
-  }
-
-  @override
-  String getArgsKey() {
-    return _keyArgs;
-  }
+  State<StatefulWidget> createState() =>
+      _MessageRoomScreenState(roomId, myProfile, targetProfile);
 }
 
 class _MessageRoomScreenState extends BaseState<MessageRoomScreen> {
@@ -230,9 +203,8 @@ class _MessageRoomScreenState extends BaseState<MessageRoomScreen> {
           base64Decode(message.customProperties![customPropertiesBase64ImageKey]);
       return InkWell(
         onTap: () {
-          MyNavigator.pushNamed(context, Routes.simpleImage,
-              arguments:
-                  SimpleImageScreen.createScreenArgs('画像', image: u));
+          context.appPush(AppRoutes.simpleImage,
+              extra: SimpleImageScreenArgs('画像', image: u));
         },
         child: Image.memory(
           u,
@@ -261,9 +233,8 @@ class _MessageRoomScreenState extends BaseState<MessageRoomScreen> {
             message.customProperties?[_customPropertiesMessageId];
 
         if (isPaid) {
-          MyNavigator.pushNamed(context, Routes.simpleImage,
-              arguments:
-                  SimpleImageScreen.createScreenArgs('画像', url: media.url));
+          context.appPush(AppRoutes.simpleImage,
+              extra: SimpleImageScreenArgs('画像', url: media.url));
         } else {
           showAlertDialog(
             context,
@@ -278,9 +249,8 @@ class _MessageRoomScreenState extends BaseState<MessageRoomScreen> {
                 _init();
                 final String? imageUrl =
                     ImageLoader.apiUrlToFullPath(result?.image);
-                MyNavigator.pushNamed(context, Routes.simpleImage,
-                    arguments:
-                        SimpleImageScreen.createScreenArgs('画像', url: imageUrl));
+                context.appPush(AppRoutes.simpleImage,
+                    extra: SimpleImageScreenArgs('画像', url: imageUrl));
               }, onError: (statusCode, errorMessage) {
                 showErrorSnackBar(context,
                     text: errorMessage ?? '画像の読み込みに失敗しました。時間をあけておためしください。');
@@ -341,8 +311,8 @@ class _MessageRoomScreenState extends BaseState<MessageRoomScreen> {
         showCurrentUserAvatar: true,
         onPressAvatar: (ChatUser user) {
           if (!isMeFromId(user.id)) {
-            MyNavigator.pushNamed(context, Routes.profile,
-                arguments: ProfileScreen.createScreenArgs(_targetProfile));
+            context.appPush(AppRoutes.profile,
+                extra: ProfileScreenArgs(_targetProfile));
           }
         },
         onLongPressAvatar: (ChatUser user) {},

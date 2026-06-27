@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 import '../../../core/colors.dart';
 import '../../../core/my_platform.dart';
-import '../../app.dart';
 import '../../components/texts.dart';
 import '../../my_navigator.dart';
 import 'home_change_notifier.dart';
@@ -11,15 +10,12 @@ AppBar buildHomeAppBar(BuildContext context, String title,
     {TabBar? tabBar, bool noActions = false}) {
   List<Widget> actions = [
     IconButton(
-        icon: Icon(
-          Icons.my_library_books,
-          color: Colors.white,
-        ),
-        onPressed: () => MyNavigator.pushNamed(context, Routes.setting)),
+        icon: Icon(Icons.my_library_books, color: Colors.white),
+        onPressed: () => context.appPush(AppRoutes.setting)),
     IconButton(
         icon: Icon(Icons.person, color: Colors.white),
         onPressed: () async {
-          await MyNavigator.pushNamed(context, Routes.myPage);
+          await context.appPush(AppRoutes.myPage);
           MyProfileNotifier.getNoListenerNotifier(context).update(context);
         })
   ].where((element) => element != null).toList();

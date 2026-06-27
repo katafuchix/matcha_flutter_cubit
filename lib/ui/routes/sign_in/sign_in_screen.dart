@@ -15,9 +15,6 @@ import '../../../core/my_notification_manager.dart';
 import '../../../core/my_platform.dart';
 import '../../../model/basic/sex.dart';
 import '../../../model/master/master_data.dart';
-import '../../../ui/base/base_stateful_widget.dart';
-import '../../../ui/components/texts.dart';
-import '../../../ui/my_navigator.dart';
 import '../../base/base_stateful_widget.dart';
 import '../../components/buttons.dart';
 import '../../components/containers.dart';
@@ -28,6 +25,7 @@ import '../../components/text_labels.dart';
 import '../../components/texts.dart';
 import '../../components/widget_circular_progress.dart';
 import '../../my_navigator.dart';
+import '../../components/texts.dart';
 import 'sign_in_cubit.dart';
 
 class SignInScreenViewData {
@@ -71,7 +69,7 @@ class _SignInScreenState extends BaseState<SignInScreen> {
     if (MyPlatform.isMobileApp) {
       await MyNotificationManager.requestPermission();
     }
-    MyNavigator.pushMain(context);
+    context.appGo(AppRoutes.home);
   }
 
   @override

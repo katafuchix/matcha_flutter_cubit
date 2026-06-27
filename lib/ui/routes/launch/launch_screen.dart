@@ -13,6 +13,7 @@ import '../../components/dialogs.dart';
 import '../../components/texts.dart';
 import '../../components/widget_circular_progress.dart';
 import '../../my_navigator.dart';
+import 'package:go_router/go_router.dart';
 
 class LaunchScreen extends BaseStatefulWidget {
   @override
@@ -40,9 +41,9 @@ class _LaunchScreenState extends BaseState<LaunchScreen>
         await SharedPreferencesManager.getInstance();
     if (manager.getString(SharedPreferencesKeys.ACCESS_TOKEN)?.isNotEmpty ==
         true) {
-      MyNavigator.pushMain(context);
+      context.go(AppRoutes.home);
     } else {
-      MyNavigator.pushWelcome(context);
+      context.go(AppRoutes.signIn);
     }
   }
 
