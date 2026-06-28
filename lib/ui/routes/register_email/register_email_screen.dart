@@ -30,7 +30,7 @@ class _RegisterEmailScreen extends BaseState<RegisterEmailScreen> {
   final RegisterEmailScreenCubit _registerEmailScreenCubit;
 
   _RegisterEmailScreen(this._registerEmailScreenCubit)
-      : super(_registerEmailScreenCubit);
+      : super();
 
   final TextEditingController _controllerEmail = TextEditingController();
   final TextEditingController _controllerPassword = TextEditingController();

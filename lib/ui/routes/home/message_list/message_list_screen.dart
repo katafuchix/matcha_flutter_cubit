@@ -38,7 +38,7 @@ class MessageListScreen extends BaseStatefulWidget {
 
 class _MessageListScreenState extends BaseState<MessageListScreen>
     with SingleTickerProviderStateMixin {
-  _MessageListScreenState() : super(null);
+  _MessageListScreenState() : super();
 
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   final UserRepository _userRepository = UserRepository();

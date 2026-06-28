@@ -63,7 +63,7 @@ class _ProfileScreen extends BaseState<ProfileScreen> {
   final BbsRepository _bbsRepository = BbsRepository();
   final MessageRepository _messageRepository = MessageRepository();
 
-  _ProfileScreen(this._profile, this._isMe) : super(null);
+  _ProfileScreen(this._profile, this._isMe) : super();
 
   @override
   void initState() {

@@ -61,7 +61,7 @@ class _SignInScreenState extends BaseState<SignInScreen> {
   String? deviceToken;
   Sex? _sex;
 
-  _SignInScreenState() : super(null) {
+  _SignInScreenState() : super() {
     _borderSide = BorderSide(color: _colors.primaryDark, width: 2);
   }
 

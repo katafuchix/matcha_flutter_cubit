@@ -24,7 +24,7 @@ class LaunchScreen extends BaseStatefulWidget {
 
 class _LaunchScreenState extends BaseState<LaunchScreen>
     with SingleTickerProviderStateMixin {
-  _LaunchScreenState() : super(null);
+  _LaunchScreenState() : super();
 
   final MasterRepository _masterRepository = MasterRepository();
   final ConfigRepository _configRepository = ConfigRepository();

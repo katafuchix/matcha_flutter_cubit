@@ -60,7 +60,7 @@ class _SearchConditionState extends BaseState<SearchConditionScreen> {
       items: List<int>.generate(71, (i) => i + 130),
       converter: (int? item) => item == null ? null : '${item}cm');
 
-  _SearchConditionState(this.currentCondition) : super(null);
+  _SearchConditionState(this.currentCondition) : super();
 
   @override
   void initState() {

@@ -1,4 +1,3 @@
-import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 
 import '../components/widget_circular_progress.dart';
@@ -9,8 +8,6 @@ abstract class BaseStatefulWidget extends StatefulWidget {
 
 abstract class BaseState<T extends BaseStatefulWidget> extends State<T>
     with WidgetsBindingObserver {
-  BlocBase? bloc;
-  BaseState([this.bloc]);
 
   bool _showingProgress = false;
 
@@ -46,7 +43,6 @@ abstract class BaseState<T extends BaseStatefulWidget> extends State<T>
   @override
   void dispose() {
     WidgetsBinding.instance.removeObserver(this);
-    bloc?.close();
     super.dispose();
   }
 

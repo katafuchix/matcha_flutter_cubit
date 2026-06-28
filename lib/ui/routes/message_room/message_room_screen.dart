@@ -58,7 +58,7 @@ class _MessageRoomScreenState extends BaseState<MessageRoomScreen> {
           firstName: _targetProfile.profile.nickname,
           profileImage: ImageLoader.profileResponseToFullPath(_targetProfile),
         ),
-        super(null);
+        super();
 
   static const String _customPropertiesPaid = 'is_paid';
   static const String _customPropertiesMessageId = 'message_id';

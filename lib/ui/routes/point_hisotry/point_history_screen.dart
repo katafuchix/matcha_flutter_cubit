@@ -19,7 +19,7 @@ class PointHistoryScreen extends BaseStatefulWidget {
 }
 
 class _PointHistoryState extends BaseState<PointHistoryScreen> {
-  _PointHistoryState() : super(null);
+  _PointHistoryState() : super();
 
   final PointRepository _pointRepository = PointRepository();
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();

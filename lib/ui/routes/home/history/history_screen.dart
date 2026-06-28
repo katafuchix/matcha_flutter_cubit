@@ -26,7 +26,7 @@ class HistoryScreen extends BaseStatefulWidget {
 
 class _HistoryScreenState extends BaseState<HistoryScreen>
     with SingleTickerProviderStateMixin {
-  _HistoryScreenState() : super(null);
+  _HistoryScreenState() : super();
 
   late TabController _tabController;
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();

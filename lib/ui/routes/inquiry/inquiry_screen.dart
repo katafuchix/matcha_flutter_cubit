@@ -27,7 +27,7 @@ class InquiryScreenResult {
 }
 
 class _InquirySate extends BaseState<InquiryScreen> {
-  _InquirySate() : super(null);
+  _InquirySate() : super();
 
   final MasterRepository _masterRepository = MasterRepository();
   final UserRepository _userRepository = UserRepository();

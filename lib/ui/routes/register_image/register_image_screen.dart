@@ -47,7 +47,7 @@ class _RegisterImageScreen extends BaseState<RegisterImageScreen> {
 
   _RegisterImageScreen(
       this._registerImageScreenCubit, this._currentProfileImageUrl)
-      : super(_registerImageScreenCubit);
+      : super();
 
   String? _base64Image;
   bool _enableRegisterButton = false;

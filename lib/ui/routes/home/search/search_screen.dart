@@ -36,7 +36,7 @@ class SearchScreenViewData {
 enum LayoutType { GRID, LIST }
 
 class _SearchScreenState extends BaseState<SearchScreen> {
-  _SearchScreenState() : super(null);
+  _SearchScreenState() : super();
 
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   final AppColors _colors = getAppColors();

@@ -23,7 +23,7 @@ class _SimpleImageScreen extends BaseState<SimpleImageScreen> {
   final String? url;
   final Uint8List? image;
 
-  _SimpleImageScreen(this.title, {this.url, this.image}) : super(null);
+  _SimpleImageScreen(this.title, {this.url, this.image}) : super();
 
   @override
   Widget build(BuildContext context) {

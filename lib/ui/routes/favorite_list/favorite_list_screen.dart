@@ -21,7 +21,7 @@ class FavoriteListScreen extends BaseStatefulWidget {
 }
 
 class _FavoriteListState extends BaseState<FavoriteListScreen> {
-  _FavoriteListState() : super(null);
+  _FavoriteListState() : super();
 
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 

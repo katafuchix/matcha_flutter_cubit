@@ -74,7 +74,7 @@ class _TicketScreenState extends BaseState<TicketScreen> {
 
   bool _showProgress = false;
 
-  _TicketScreenState() : super(null);
+  _TicketScreenState() : super();
 
   @override
   void initState() {

@@ -50,7 +50,7 @@ class MyPageScreenViewData {
 }
 
 class _MyPageScreen extends BaseState<MyPageScreen> {
-  _MyPageScreen() : super(null);
+  _MyPageScreen() : super();
 
   final TextEditingController _userNameController = TextEditingController();
   final TextEditingController _profileCommentController =

@@ -42,7 +42,7 @@ class SettingScreenViewData {
 class _SettingScreen extends BaseState<SettingScreen> {
   final SettingScreenCubit _settingScreenCubit;
 
-  _SettingScreen(this._settingScreenCubit) : super(_settingScreenCubit);
+  _SettingScreen(this._settingScreenCubit) : super();
 
   //BannerAdWidget _ad = BannerAdWidget(AdUnits.menuScreenBannerAdUnitId);
 

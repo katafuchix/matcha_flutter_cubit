@@ -19,7 +19,7 @@ class _SimpleTextScreen extends BaseState<SimpleTextScreen> {
   final String title;
   final String text;
 
-  _SimpleTextScreen(this.title, this.text) : super(null);
+  _SimpleTextScreen(this.title, this.text) : super();
 
   @override
   Widget build(BuildContext context) {

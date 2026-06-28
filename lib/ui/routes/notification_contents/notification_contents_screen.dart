@@ -36,7 +36,7 @@ class _NotificationContentsState extends BaseState<NotificationContentsScreen> {
 
   _NotificationContentsState(
       this.notificationId, this.notificationType, this.title)
-      : super(null);
+      : super();
 
   @override
   void initState() {

@@ -21,7 +21,7 @@ class _MultiChoiceState extends BaseState<MultiChoiceScreen> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   final String _title;
   final List<MultiChoiceOneItem> _items;
-  _MultiChoiceState(this._title, this._items) : super(null);
+  _MultiChoiceState(this._title, this._items) : super();
 
   @override
   Widget build(BuildContext context) {

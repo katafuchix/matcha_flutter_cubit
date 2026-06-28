@@ -22,7 +22,7 @@ class BlockListScreen extends BaseStatefulWidget {
 }
 
 class _BlockListState extends BaseState<BlockListScreen> {
-  _BlockListState() : super(null);
+  _BlockListState() : super();
 
   final UserRepository _userRepository = UserRepository();
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
